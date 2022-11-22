@@ -1,0 +1,4 @@
+Name	f/25	s/25	final/50
+Ahmad	20	15	34
+Ali	22	13	45
+Hamza	17	18	40

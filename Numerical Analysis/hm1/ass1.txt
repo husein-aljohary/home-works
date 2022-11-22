@@ -1,0 +1,103 @@
+#include <iostream>
+#include <iomanip>
+#include<cmath>
+using namespace std;
+
+double f(double x)
+{
+	return pow(2.71828182846, x) - 2 - x; 
+}
+void bisection(double a, double b)
+{
+	if (f(a) * f(b) >= 0)
+	{
+		cout << "it is not opposite sign your iput is wrong\n";
+		return;
+	}
+	double c = a;
+	while ( (b - a) >= (5*(pow(10,-9))) )
+	{
+		c = (a + b) / 2;
+		if (f(c) == 0.0)
+			break;
+		else if (f(c) * f(a) < 0)
+			b = c;
+		else
+			a = c;
+	}
+	cout << "\nThe root of the equation by using the bisection Method is : " << c;
+}
+
+
+//////////////////////////////////////////////////////////////////////
+
+
+void falsePosition(double a, double b)
+{
+	double c, w, e = 5 * (pow(10, -9));
+	double u = f(a);
+	double v = f(b);
+	do
+	{
+		if (u * v > 0)
+		{
+			cout << "it is not opposite sign your iput is wrong";
+			exit(0);
+		}
+		else
+		{
+			c = (b - (u * (b - a)) / (v - u)); 
+			w = f(c);
+			e = fabs((b - a) / b);
+			if (u * w < 0)
+			{
+				b = c;
+			}
+			else
+			{
+				a = c;
+			}
+
+		}
+	} while (fabs(f(c)) < e);
+	cout << "\nThe root of the equation by using the False Position Method is : " << c;
+
+
+}
+
+
+
+
+
+
+int main()
+{
+
+
+	// my id is 140083  i have to solve the the fourth question 
+	// the function is e ^ x - 2 - x = 0, [-2.4, -1.6]---[a,b]
+
+	double a,b;
+	cout<<"enter a:" << endl;
+	cin >> a;
+	cout << "enter b:" << endl;
+	cin >> b;
+	int x;
+	cout << "if you want : the Bisection method write 1 ------- the False Position method write 2 " << endl;
+	cin >> x;
+	switch (x)
+	{
+	case 1:
+		bisection(a, b);
+		break;
+	case 2:
+		falsePosition(a, b);
+		break;
+	default:
+		cout << "wrong choice!! ";
+		break;
+	}
+
+
+	return 0;
+}

@@ -1,0 +1,28 @@
+#include<iostream>
+#include<math.h>
+#include<iomanip>
+
+
+using namespace std;
+
+int main()
+{
+
+	double x[]={2.0 , 2.3 , 2.6 , 2.9 , 3.2 }, y[]={5.1 , 7.5 , 10.6 , 14.4 , 19.0};
+	double sumx=0, sumy=0;
+
+	//m=3
+	//n=5 
+	//sumx = the sumation of (x^m)*y from 1 to n
+	//sumy = the sumation of x^2m from 1 to n
+	for (int i = 0; i < 5; i++) {
+		sumx += (y[i]* pow(x[i], 3.0));// (x^m)*y
+		sumy += pow(x[i], 6.0);//  x^2m 
+	}
+	cout << "y=" << sumx / sumy << "x^3" << "\n";
+
+
+
+
+	return(0);
+}

@@ -1,0 +1,150 @@
+#include<iostream>
+#include<iomanip>
+#include<string>
+#include<vector>
+using namespace std;
+
+int main() {
+
+    //this code for jacobi *********************************************************
+
+    int nj, ij, jj, l = 0, flagj = 0, countj = 0;
+    cout << "\calculate by using jacobi method\n";
+    cout << "\nenter the number of equations\n";
+    cin >> nj;
+    double aj[20][20], bj[20], xj[20], Tj[30], ej = 0.000001; int kj;
+    cout << "Enter Matrix a:" << endl;
+    for (ij = 0; ij < nj; ij++)
+        for (jj = 0; jj < nj; jj++)
+        {
+            cin >> aj[ij][jj];
+        }
+    cout << "Enter vector b:" << endl;
+    for (jj = 0; jj < nj; jj++)
+    {
+        cin >> bj[jj];
+    }
+    cout << "\nEnter the initial approximation for the solution :\n";
+    for (ij = 0; ij < nj; ij++)
+        cin >> xj[ij];
+
+
+    for (ij = 0; ij < nj; ij++)
+        Tj[ij] = 0;
+    cout << "\n************************************************************************\n";
+    do
+    {
+        for (ij = 0; ij < nj; ij++)
+        {
+            int y = xj[ij];
+            xj[ij] = (1 / aj[ij][ij]) * (bj[ij]);
+            for (jj = 0; jj < nj; jj++)
+            {
+                if (jj != ij)
+                    xj[ij] = xj[ij] - (1 / aj[ij][ij]) * (aj[ij][jj] * Tj[jj]);
+
+            }
+            if (abs(xj[ij] - y) <= ej)
+                flagj++;
+            cout << xj[ij] << "          ";
+        }
+        for (kj = 0; kj < nj; kj++)
+            Tj[kj] = xj[kj];
+        cout << "\n";
+        countj++;
+    } while (flagj < nj);
+
+    cout << "\n The solution by using jacobi iteration :\n";
+    for (ij = 0; ij < nj; ij++)
+        cout << "x" << ij + 1 << "=" << xj[ij] << endl;
+    cout << "\n The number of iteration is: " << countj << endl;
+
+    //end jacobi code
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    //this code for Gauss-Seidel *********************************************************
+    int n, i, j, k, flag = 0, count = 0;
+    cout << "\calculate by using Gauss-Seidel method\n";
+    cout << "\nenter the number of equations\n";
+    cin >> n;
+
+    double a[20][20];
+    double x[20];
+    double err=0.000001, y;
+
+    cout << "\nEnter the elements of the matrix and the las number is the vector B per line :\n";
+    for (i = 0; i < n; i++)
+        for (j = 0; j <= n; j++)
+            cin >> a[i][j];
+
+    cout << "\nEnter the initial approximation for the solution :\n";
+    for (i = 0; i < n; i++)
+        cin >> x[i];
+
+
+    for (i = 0; i < n; i++)
+        for (k = i + 1; k < n; k++)
+            if (abs(a[i][i]) < abs(a[k][i]))
+                for (j = 0; j <= n; j++)
+                {
+                    double temp = a[i][j];
+                    a[i][j] = a[k][j];
+                    a[k][j] = temp;
+                }
+
+    cout << "\n************************************************************************\n";
+
+    do
+    {
+        for (i = 0; i < n; i++)
+        {
+            y = x[i];
+            x[i] = a[i][n];
+            for (j = 0; j < n; j++)
+            {
+                if (j != i)
+                    x[i] = x[i] - a[i][j] * x[j];
+            }
+            x[i] = x[i] / a[i][i];
+            if (abs(x[i] - y) <= err)
+
+                flag++;
+            cout << x[i] << "          ";
+        }
+        cout << "\n";
+        count++;
+    } while (flag < n);
+
+    cout << "\n The solution by using Gauss-Seidel iteration :\n";
+    for (i = 0; i < n; i++)
+        cout << "x" << i << " = " << x[i] << endl;
+    cout << "\n The number of iteration is: " << count << endl;
+
+    //end Gauss-Seidel code
+
+
+    //to show who is the better 
+    cout << endl;
+    if (countj > count)
+        cout << "the Gauss-Seidel is better";
+    else
+        cout << "the jacobi is better";
+
+    cout << endl;
+    cout << endl;
+
+
+    
+
+
+
+
+    return 0;
+
+}
+
+
+
+
+
